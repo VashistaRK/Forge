@@ -2,7 +2,7 @@ import type { ResumeTemplate } from "../types/resumeTemplate";
 import { resumeTemplates } from "../data/resumeTemplates";
 import { categories } from "../data/categories"; // Import categories
 import { useState } from "react";
-import { FaTimes } from "react-icons/fa";
+import { FaTag, FaTimes } from "react-icons/fa";
 import { FaFileAlt, FaArrowLeft } from "react-icons/fa";
 import Footer from "./Footer";
 import { useEffect } from "react";
@@ -139,7 +139,8 @@ const ResumeTemplates = ({ scrollToPage }: { scrollToPage: () => void }) => {
                         />
 
                         {/* Top Left Text */}
-                        <div className="absolute top-2 left-2 bg-black bg-opacity-50 text-white px-2 py-1 text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="absolute top-2 right-2 bg-gray-500/50 text-white px-2 py-1 text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                          <FaTag />
                           {template.name}
                         </div>
 

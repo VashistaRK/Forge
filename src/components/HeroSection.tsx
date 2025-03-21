@@ -124,7 +124,7 @@ const HeroSection = () => {
             className="absolute object-cover shadow-lg cursor-grab active:cursor-grabbing transition-transform rounded-2xl"
             style={{
               left: "50%",
-              top: "50%",
+              top: "10%",
               transition: scattered ? "transform 0.3s ease-out" : "none",
               transform: `translate(${positions[index].x}px, ${
                 positions[index].y
