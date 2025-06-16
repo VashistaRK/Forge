@@ -22,7 +22,7 @@ const ContactPage: React.FC = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:1337/api/contact/send-email",
+        "https://ai-resume-builder-strapi-k452.onrender.com/api/contact/send-email",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

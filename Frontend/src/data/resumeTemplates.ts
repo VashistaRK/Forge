@@ -72,4 +72,13 @@ export const resumeTemplates: ResumeTemplate[] = [
     featured: true,
     category: "Professional",
   },
+  {
+    id:9,
+    name: "Professional Resume",
+    image:"/images/Professional_Resume.jpg",
+    downloadUrl: "/Documents/Professional_Resume.docx",
+    description: "Classic and timeless design for all professionals",
+    featured: false,
+    category: "Professional",
+  }
 ];

@@ -74,7 +74,7 @@ const HeroSection = () => {
   /* File Count  */
   const [fileCount, setFileCount] = useState(null);
   useEffect(() => {
-    fetch("http://localhost:1337/api/contact/file-count")
+    fetch("https://ai-resume-builder-strapi-k452.onrender.com/api/contact/file-count")
       .then((res) => res.json())
       .then((data) => setFileCount(data.fileCount))
       .catch((err) => console.error(err));

@@ -12,7 +12,7 @@ const API_KEY = import.meta.env.VITE_STRAPI_API_KEY;
 // });
 
 const axiosClient: AxiosInstance = axios.create({
-  baseURL: "http://localhost:1337/api",
+  baseURL: import.meta.env.VITE_BASE_URL+"/api",
   headers: {
     "Content-Type": "application/json",
   },
