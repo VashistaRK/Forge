@@ -84,7 +84,7 @@ function RichTextEditor({
   }, [resumeInfo, index, onRichTextEditorChange]);
 
   // Memoize the onChange handler to prevent unnecessary re-renders
-  const handleEditorChange = useCallback((event: any, editor: any) => {
+  const handleEditorChange = useCallback((_event: any, editor: any) => {
     const data = editor.getData();
     if (data !== value) {
       setValue(data);
