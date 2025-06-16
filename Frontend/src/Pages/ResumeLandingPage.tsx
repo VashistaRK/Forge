@@ -16,7 +16,7 @@ import ButtonGroup from "../components/ButtonsGP";
 import ContactPage from "../components/ContactPage";
 import HeroSection from "../components/HeroSection";
 import TextScramble from "@/components/Builder";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 const myPhrases = ["Free & Best Resume Templates to Download and Edit"];
 

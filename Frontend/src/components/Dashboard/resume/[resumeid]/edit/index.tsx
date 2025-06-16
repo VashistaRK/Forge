@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import FormSection from "../../REcomponents/FormSection";
-import PreviewSection from "../../REcomponents/PreviewSection";
 import { ResumeInfoContext } from "@/context/ResumeInfoContext";
 import type { ResumeInfo } from "../../REcomponents/types";
+import { useParams } from "react-router-dom";
 import GlobalApi from "../../../../../../service/GlobalApi";
-import { useParams } from "react-router";
-// import dummy from "../../REcomponents/dummy";
+import React from "react";
 /*eslint-disable*/
+const FormSection = React.lazy(() => import("../../REcomponents/FormSection"));
+const PreviewSection = React.lazy(() => import("../../REcomponents/PreviewSection"));
 
 const EditResume = () => {
   const { resumeid } = useParams<{ resumeid: string }>();

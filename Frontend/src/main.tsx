@@ -1,17 +1,23 @@
 import React from "react";
 import { lazy } from "react";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 import { ClerkProvider } from "@clerk/clerk-react";
 import "./index.css";
 import App from "./App";
 import Signin from "./components/Signin";
-import UnderConstruction from "./Pages/UnderCon.tsx";
 import ResumeLandingPage from "./Pages/ResumeLandingPage.tsx";
+
 const Resumes = lazy(() => import("./Pages/Resumes.tsx"));
-import Dashboard from "./components/Dashboard/Dashboard";
-import EditResume from "./components/Dashboard/resume/[resumeid]/edit";
-import ViewResume from "./my-resume/[resumeid]/view";
+const Dashboard = React.lazy(() => import("./components/Dashboard/Dashboard"));
+const EditResume = React.lazy(
+  () => import("./components/Dashboard/resume/[resumeid]/edit")
+);
+const ViewResume = React.lazy(() => import("./my-resume/[resumeid]/view"));
+const UnderConstruction = React.lazy(() => import("./Pages/UnderCon.tsx"));
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -59,8 +65,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
-      <RouterProvider router={router} />
-    </ClerkProvider>
+      <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+        <RouterProvider router={router} />
+      </ClerkProvider>
   </React.StrictMode>
 );

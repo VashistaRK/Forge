@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useContext, useEffect, useState } from "react";
-import RichTextEditor from "../RichTextEditor";
+import React, { useContext, useEffect, useState } from "react";
 import { ResumeInfoContext } from "@/context/ResumeInfoContext";
 import { useParams } from "react-router-dom";
 import GlobalApi from "../../../../../../service/GlobalApi";
@@ -9,8 +8,11 @@ import { toast } from "sonner";
 import { LoaderCircle } from "lucide-react";
 import type { ExperienceItem } from "../types";
 import type { FormEvent } from "react";
-import { JobAnalysisContext, JobAnalysisDisplay } from "./JobDescription";
+import { JobAnalysisContext } from "./JobDescription";
 /*eslint-disable*/
+// Lazy load heavy components
+const RichTextEditor = React.lazy(() => import("../RichTextEditor"));
+const JobAnalysisDisplay = React.lazy(() => import("./JobDescription").then(mod => ({ default: mod.JobAnalysisDisplay })));
 
 const defaultFormField: ExperienceItem = {
   // id: "",
@@ -193,7 +195,7 @@ function Experience() {
           <Button
             variant="outline"
             onClick={addNewExperience}
-            className="text-primary w-40 md:w-auto"
+            className="text-primary w-40"
           >
             + Add More Experience
           </Button>

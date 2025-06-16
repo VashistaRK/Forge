@@ -1,10 +1,10 @@
 import { useUser } from "@clerk/clerk-react";
-import { Navigate, Outlet } from "react-router";
-import Header from "./components/Header";
+import { Navigate, Outlet } from "react-router-dom";
 import { Toaster } from "./components/ui/sonner";
 // import { Button } from "./components/ui/button";
 import { ResumeInfoProvider } from "@/context/ResumeInfoContext";
 import { useEffect, useState } from "react";
+import Header from "./components/Header";
 import Loading from "./components/Loading";
 import Footer from "./components/Footer";
 
