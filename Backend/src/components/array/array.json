@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_array_arrays",
+  "info": {
+    "displayName": "array",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "text"
+    }
+  }
+}

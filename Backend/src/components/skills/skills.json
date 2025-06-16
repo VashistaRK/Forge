@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_skills_skills",
+  "info": {
+    "displayName": "Skills",
+    "icon": "star",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "languages": {
+      "type": "text"
+    },
+    "tools": {
+      "type": "text"
+    },
+    "coursework": {
+      "type": "text"
+    },
+    "other": {
+      "type": "component",
+      "repeatable": true,
+      "component": "array.array"
+    }
+  }
+}
