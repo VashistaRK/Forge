@@ -1,5 +1,7 @@
+import { useEffect } from "react";
 import { FaTools } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const UnderConstruction = () => {
   const navigate = useNavigate();
@@ -7,6 +9,11 @@ const UnderConstruction = () => {
   const goBackHome = () => {
     navigate("/");
   };
+ useEffect(() => {
+  toast("🚧 Page under construction. Visit Resumes or Build your own Resume.");
+  alert("Page under Construction. Visit Resumes OR Build Your Own Resume");
+}, []);
+
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-white p-6">
       <FaTools className="text-yellow-400 text-6xl mb-4" />

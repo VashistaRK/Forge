@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, Suspense } from "react";
 import { ResumeInfoContext } from "@/context/ResumeInfoContext";
 import { useParams } from "react-router-dom";
 import GlobalApi from "../../../../../../service/GlobalApi";
@@ -8,14 +8,13 @@ import { toast } from "sonner";
 import { LoaderCircle } from "lucide-react";
 import type { ExperienceItem } from "../types";
 import type { FormEvent } from "react";
-import { JobAnalysisContext } from "./JobDescription";
+import { JobAnalysisContext, JobAnalysisDisplay } from "./JobDescription";
 /*eslint-disable*/
-// Lazy load heavy components
+// Lazy load the heavy component
 const RichTextEditor = React.lazy(() => import("../RichTextEditor"));
-const JobAnalysisDisplay = React.lazy(() => import("./JobDescription").then(mod => ({ default: mod.JobAnalysisDisplay })));
 
 const defaultFormField: ExperienceItem = {
-  // id: "",
+  id: "",
   title: "",
   companyName: "",
   city: "",
@@ -30,13 +29,16 @@ function Experience() {
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
   const { resumeid } = useParams();
   const [loading, setLoading] = useState<boolean>(false);
-  const { jobAnalysis } = useContext(JobAnalysisContext);
+
+  // 🔐 SAFE CONTEXT ACCESS
+  const jobCtx = useContext(JobAnalysisContext);
+  const jobAnalysis = jobCtx?.jobAnalysis;
 
   useEffect(() => {
     if (resumeInfo?.Experience?.length) {
       setExperienceList(resumeInfo.Experience);
     }
-  }, [resumeInfo?.Experience]); // More specific dependency
+  }, [resumeInfo?.Experience]);
 
   const updateResumeInfo = (updatedList: ExperienceItem[]) => {
     if (resumeInfo) {
@@ -55,19 +57,19 @@ function Experience() {
     const updatedList = [...experienceList];
     updatedList[index][name as keyof ExperienceItem] = value;
     setExperienceList(updatedList);
-    updateResumeInfo(updatedList); // Update resumeInfo immediately
+    updateResumeInfo(updatedList);
   };
 
   const addNewExperience = () => {
     const updatedList = [...experienceList, { ...defaultFormField }];
     setExperienceList(updatedList);
-    updateResumeInfo(updatedList); // Update resumeInfo immediately
+    updateResumeInfo(updatedList);
   };
 
   const removeExperience = () => {
     const updatedList = experienceList.slice(0, -1);
     setExperienceList(updatedList);
-    updateResumeInfo(updatedList); // Update resumeInfo immediately
+    updateResumeInfo(updatedList);
   };
 
   const handleRichTextEditor = (
@@ -78,18 +80,8 @@ function Experience() {
     const updatedList = [...experienceList];
     updatedList[index][name] = value;
     setExperienceList(updatedList);
-    updateResumeInfo(updatedList); // Update resumeInfo immediately
+    updateResumeInfo(updatedList);
   };
-
-  // REMOVED THE PROBLEMATIC useEffect THAT CAUSED THE INFINITE LOOP
-  // useEffect(() => {
-  //   if (resumeInfo) {
-  //     setResumeInfo({
-  //       ...resumeInfo,
-  //       Experience: experienceList,
-  //     });
-  //   }
-  // }, [experienceList]);
 
   const onSave = async (e: FormEvent) => {
     e.preventDefault();
@@ -106,18 +98,15 @@ function Experience() {
         Experience: experienceList.map(({ id, ...rest }) => rest),
       },
     };
-
-    console.log("Resume Info before save:", resumeInfo);
-
-    GlobalApi.UpdateResumeDetails(resumeid, data)
-      .then(() => {
-        setLoading(false);
-        toast("Details updated!");
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-      });
+    try {
+      await GlobalApi.UpdateResumeDetails(resumeid, data);
+      setLoading(false);
+      toast.success("Details updated!");
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+      toast.error("Failed to update experience");
+    }
   };
 
   return (
@@ -180,13 +169,15 @@ function Experience() {
             />
           </div>
           <div className="col-span-2">
-            <RichTextEditor
-              index={index}
-              defaultValue={item.workSummery}
-              onRichTextEditorChange={(value) =>
-                handleRichTextEditor(value, "workSummery", index)
-              }
-            />
+            <Suspense fallback={<div>Loading editor...</div>}>
+              <RichTextEditor
+                index={index}
+                defaultValue={item.workSummery}
+                onRichTextEditorChange={(value) =>
+                  handleRichTextEditor(value, "workSummery", index)
+                }
+              />
+            </Suspense>
           </div>
         </div>
       ))}
@@ -211,6 +202,7 @@ function Experience() {
           {loading ? <LoaderCircle className="animate-spin" /> : "Save"}
         </Button>
       </div>
+
       {jobAnalysis && (
         <div className="mt-8 border-t pt-6">
           <JobAnalysisDisplay showMinimized={false} />

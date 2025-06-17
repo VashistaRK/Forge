@@ -20,7 +20,13 @@ function Skills() {
   const { resumeid } = useParams<{ resumeid: string }>();
   const [loading, setLoading] = useState(false);
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
-  const { jobAnalysis } = useContext(JobAnalysisContext);
+  const context = useContext(JobAnalysisContext);
+  if (!context) {
+    throw new Error(
+      "JobAnalysisContext not found. Make sure to wrap in JobAnalysisProvider."
+    );
+  }
+  const jobAnalysis = context?.jobAnalysis;
 
   // Sync resumeInfo context to local state
   useEffect(() => {

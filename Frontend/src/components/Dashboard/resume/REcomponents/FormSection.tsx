@@ -3,15 +3,13 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import JobDescription, { JobAnalysisProvider } from "./forms/JobDescription";
-import React from "react";
-
-const PersonalDetails = React.lazy(() => import("./forms/PersonalDetails"));
-const Summery = React.lazy(() => import("./forms/Summery"));
-const Experience = React.lazy(() => import("./forms/Experience"));
-const Education = React.lazy(() => import("./forms/Education"));
-const Skills = React.lazy(() => import("./forms/Skills"));
-const Certificates = React.lazy(() => import("./forms/Certificates"));
-const Projects = React.lazy(() => import("./forms/Projects"));
+import PersonalDetails from "./forms/PersonalDetails";
+import Summery from "./forms/Summery";
+import Skills from "./forms/Skills";
+import Experience from "./forms/Experience";
+import Education from "./forms/Education";
+import Certificates from "./forms/Certificates";
+import Projects from "./forms/Projects";
 
 const FormSection = () => {
   const [activeFormIndex, setActiveFormIndex] = useState(1);
