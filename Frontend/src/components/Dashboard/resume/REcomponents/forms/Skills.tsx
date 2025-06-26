@@ -9,7 +9,11 @@ import { toast } from "sonner";
 import type { Skills as SkillsType } from "../types";
 import { JobAnalysisContext, JobAnalysisDisplay } from "./JobDescription";
 
-function Skills() {
+interface SkillsProps{
+  enableNext: (enabled: boolean) => void;
+}
+
+const Skills:React.FC<SkillsProps>=({enableNext})=> {
   const [skills, setSkills] = useState<SkillsType>({
     languages: "",
     tools: "",
@@ -48,6 +52,7 @@ function Skills() {
   const handleChange = (field: keyof SkillsType, value: string) => {
     const updated = { ...skills, [field]: value };
     updateSkills(updated);
+    enableNext(false);
   };
 
   const handleOtherSkillChange = (index: number, value: string) => {
@@ -83,6 +88,7 @@ function Skills() {
     try {
       await GlobalApi.UpdateResumeDetails(resumeid, data);
       toast.success("Skills updated!");
+      enableNext(true);
     } catch (error) {
       console.error(error);
       toast.error("Server error. Please try again.");

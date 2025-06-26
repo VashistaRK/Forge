@@ -63,6 +63,7 @@ const AddResume: React.FC = () => {
       console.error("Failed to create resume:", error);
     } finally {
       setLoading(false);
+      window.location.reload();
     }
   };
 

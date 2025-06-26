@@ -9,7 +9,11 @@ import { toast } from "sonner";
 import type { Certification } from "../types";
 import { JobAnalysisContext, JobAnalysisDisplay } from "./JobDescription";
 
-function Certificates() {
+interface CertificateProps{
+  enableNext : (enabled:boolean) =>void;
+}
+
+const Certificates:React.FC<CertificateProps>=({enableNext})=> {
   const [certifications, setCertifications] = useState<Certification[]>([]);
   const { resumeid } = useParams<{ resumeid: string }>();
   const [loading, setLoading] = useState(false);
@@ -41,6 +45,7 @@ function Certificates() {
     const updated = [...certifications];
     updated[index] = { ...updated[index], [field]: value };
     updateCertifications(updated);
+    enableNext(false);
   };
 
   const addCertification = () => {
@@ -68,6 +73,7 @@ function Certificates() {
     try {
       await GlobalApi.UpdateResumeDetails(resumeid, data);
       toast.success("Certifications updated!");
+      enableNext(true);
     } catch (error) {
       console.error(error);
       toast.error("Server error. Please try again.");

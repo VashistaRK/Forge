@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ResumeInfoContext } from "@/context/ResumeInfoContext";
 import ResumePreview from "@/components/Dashboard/resume/REcomponents/PreviewSection";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate , useParams } from "react-router-dom";
 import GlobalApi from "../../../../service/GlobalApi";
 // import { RWebShare } from 'react-web-share';
 import type { ResumeInfo } from "@/components/Dashboard/resume/REcomponents/types";
@@ -11,6 +11,7 @@ import type { ResumeInfo } from "@/components/Dashboard/resume/REcomponents/type
 function ViewResume() {
   const [resumeInfo, setResumeInfo] = useState<ResumeInfo | null>(null);
   const { resumeid } = useParams<{ resumeid: string }>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (resumeid) GetResumeInfo(resumeid);
@@ -51,9 +52,10 @@ function ViewResume() {
             Now you are ready to download your resume and you can share your
             unique resume URL with your friends and family.
           </p>
-          {/* <div className="flex justify-center px-44 my-10"> */}
+          <div className="flex justify-center px-44 my-10 space-x-10">
             <Button onClick={HandleDownload} className="max-w-40">Download</Button>
-          {/* </div> */}
+            <Button onClick={()=>navigate(`/dashboard/resume/${resumeid}/edit`)} className="max-w-40">Edit</Button>
+          </div>
         </div>
       </div>
       <div className="my-10 mx-10 md:mx-20 lg:mx-36">

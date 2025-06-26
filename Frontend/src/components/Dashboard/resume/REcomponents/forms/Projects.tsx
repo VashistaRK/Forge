@@ -10,7 +10,11 @@ import { toast } from "sonner";
 import type { Project } from "../types";
 import { JobAnalysisContext, JobAnalysisDisplay } from "./JobDescription";
 
-function Projects() {
+interface ProjectsProps{
+  enableNext:(enabled:boolean)=>void;
+}
+
+const Projects:React.FC<ProjectsProps>=({enableNext})=> {
   const [projects, setProjects] = useState<Project[]>([]);
   const { resumeid } = useParams<{ resumeid: string }>();
   const [loading, setLoading] = useState(false);
@@ -37,6 +41,7 @@ function Projects() {
     const updated = [...projects];
     updated[index] = { ...updated[index], [field]: value };
     updateProjects(updated);
+    enableNext(false);
   };
 
   const addProject = () => {
@@ -64,6 +69,7 @@ function Projects() {
     try {
       await GlobalApi.UpdateResumeDetails(resumeid, data);
       toast.success("Projects updated!");
+      enableNext(true);
     } catch (error) {
       console.error(error);
       toast.error("Server error. Please try again.");

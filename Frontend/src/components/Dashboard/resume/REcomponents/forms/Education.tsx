@@ -11,7 +11,11 @@ import { toast } from "sonner";
 import type { EducationItem } from "../types";
 import { JobAnalysisContext, JobAnalysisDisplay } from "./JobDescription";
 
-function Education() {
+interface EducationProps{
+  enableNext: (enabled : boolean) => void;
+}
+
+const Education:React.FC<EducationProps>=({enableNext}) =>{
   const [loading, setLoading] = useState<boolean>(false);
   const { jobAnalysis } = useContext(JobAnalysisContext); //
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
@@ -54,6 +58,7 @@ function Education() {
       ...newEntries[index],
       [name]: value,
     };
+    enableNext(false);
     updateBothStateAndContext(newEntries);
   };
 
@@ -98,6 +103,7 @@ function Education() {
       const resp = await GlobalApi.UpdateResumeDetails(resumeid, data);
       console.log(resp);
       toast.success("Details updated!");
+      enableNext(true);
     } catch (error) {
       toast.error("Server Error, Please try again!");
       console.error(error);

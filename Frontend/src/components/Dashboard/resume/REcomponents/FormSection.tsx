@@ -65,15 +65,15 @@ const FormSection = () => {
           {/* Summary */}
           {activeFormIndex === 3 && <Summery enableNext={setEnableNext} />}
           {/* Expirence */}
-          {activeFormIndex === 4 && <Experience />}
+          {activeFormIndex === 4 && <Experience enableNext={setEnableNext}/>}
           {/* Education Details */}
-          {activeFormIndex === 5 && <Education />}
+          {activeFormIndex === 5 && <Education enableNext={setEnableNext}/>}
           {/* Skills */}
-          {activeFormIndex === 6 && <Skills />}
+          {activeFormIndex === 6 && <Skills enableNext={setEnableNext}/>}
           {/* Certificates */}
-          {activeFormIndex === 7 && <Certificates />}
+          {activeFormIndex === 7 && <Certificates enableNext={setEnableNext}/>}
           {/* Projects */}
-          {activeFormIndex === 8 && <Projects />}
+          {activeFormIndex === 8 && <Projects enableNext={setEnableNext}/>}
           {activeFormIndex === 9 && (
             <Navigate to={`/my-resume/${resumeid}/view`} />
           )}

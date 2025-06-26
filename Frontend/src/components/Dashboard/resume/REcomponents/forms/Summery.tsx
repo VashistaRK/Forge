@@ -248,6 +248,7 @@ const Summary: React.FC<SummaryProps> = ({ enableNext }) => {
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    enableNext(false);
     const newSummary = e.target.value;
     setSummary(newSummary);
     // Update context but don't save to database

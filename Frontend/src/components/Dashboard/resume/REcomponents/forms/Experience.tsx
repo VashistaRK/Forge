@@ -24,7 +24,11 @@ const defaultFormField: ExperienceItem = {
   workSummery: "",
 };
 
-function Experience() {
+interface ExperienceProps{
+  enableNext: (enabled: boolean) => void;
+}
+
+const Experience: React.FC<ExperienceProps> = ({enableNext}) => {
   const [experienceList, setExperienceList] = useState<ExperienceItem[]>([]);
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
   const { resumeid } = useParams();
@@ -56,6 +60,7 @@ function Experience() {
     const { name, value } = event.target;
     const updatedList = [...experienceList];
     updatedList[index][name as keyof ExperienceItem] = value;
+    enableNext(false);
     setExperienceList(updatedList);
     updateResumeInfo(updatedList);
   };
@@ -102,6 +107,7 @@ function Experience() {
       await GlobalApi.UpdateResumeDetails(resumeid, data);
       setLoading(false);
       toast.success("Details updated!");
+      enableNext(true);
     } catch (err) {
       console.error(err);
       setLoading(false);
