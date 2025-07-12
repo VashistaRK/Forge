@@ -41,9 +41,9 @@ const EditResume = () => {
 
   return (
     <ResumeInfoContext.Provider value={{ resumeInfo, setResumeInfo }}>
-      <div className="grid grid-cols-1 md:grid-cols-2 p-10 gap-10">
+      <div className="bg-gradient-to-br from-purple-50 to-purple-100 grid grid-cols-1 md:grid-cols-2 p-10 gap-10">
         <FormSection />
-        <nav className="border-2 p-6">
+        <nav className="border-2 p-6 bg-white rounded-lg">
           <PreviewSection />
         </nav>
       </div>

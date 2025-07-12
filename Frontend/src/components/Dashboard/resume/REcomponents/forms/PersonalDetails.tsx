@@ -89,7 +89,7 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({ enableNext }) => {
   };
 
   return (
-    <div className="p-5 shadow-lg rounded-lg border-t-[#c051fe] border-t-4 mt-10">
+    <div className="bg-gradient-to-br from-white to-slate-50 p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
       <h2 className="font-bold text-lg">Personal Details</h2>
       <p>Get Started</p>
 

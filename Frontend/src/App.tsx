@@ -26,7 +26,7 @@ function App() {
   return (
     <ResumeInfoProvider>
       <Header />
-      <nav className="min-h-screen mb-15">
+      <nav className="min-h-screen">
         <Outlet />
       </nav>
       <Toaster />

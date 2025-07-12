@@ -79,7 +79,7 @@ const Projects:React.FC<ProjectsProps>=({enableNext})=> {
   };
 
   return (
-    <div className="p-5 shadow-lg rounded-lg border-t-green-500 border-t-4 mt-10">
+    <div className="bg-gradient-to-br from-white to-slate-50 p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
       <h2 className="font-bold text-lg">Projects</h2>
       <p>List your personal, academic, or professional projects.</p>
 
